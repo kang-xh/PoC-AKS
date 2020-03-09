@@ -15,15 +15,45 @@ kubectl --namespace monitoring port-forward prometheus-server-8666645ff5-cgm6z 9
 az aks browse --resource-group az-rg-kangxh-aks --name kangxhakssea
 
 ### Manage ACR from kangxhvmseaoss
-az login
-az acr login --name kangxhacrsea
-az acr list --resource-group az-rg-kangxh-aks --query "[].{acrLoginServer:loginServer}" --output table
-sudo docker tag kangxh/vote-web kangxhacrsea.azurecr.io/vote-web
-az acr repository list --name kangxhacrsea --output table
-az acr repository show-tags --name kangxhacrsea --repository vote-web --output table
+    az login
+    az acr login --name kangxhacrsea
+    az acr list --resource-group az-rg-kangxh-aks --query "[].{acrLoginServer:loginServer}" --output table
+    az acr repository list --name kangxhacrsea --output table
 
-### Manage vote application. 
-    build image
+
+
+    az acr repository show-tags --name kangxhacrsea --repository vote-web --output table
+    az acr repository delete --name kangxhacrsea --repository vote-web
+
+### vote
+
+    sudo docker image build /home/allenk/github/PoC-AKS/vote/web -t kangxhacrsea.azurecr.io/vote-web:latest
+    sudo docker push kangxhacrsea.azurecr.io/vote-web:latest
+
+    kubectl apply -f /home/allenk/github/PoC-AKS/vote/vote-deploy.yaml
+    kubectl get svc -n vote
+
+
+    kubectl rm deploy vote-db -n vote
+    kubectl rm deploy vote-web -n vote
+    kubectl rm namepsace vote
+
+### Tasks
+
+    Tasks PoD is a simple API app, Python, Flask
+
+    GET
+    http://localhost:5000/api/tasks
+    http://localhost:5000/api/tasks/1
+
+    POST
+    curl -i -H "Content-Type: application/json" -X POST -d '{"title":"Read a book"}' http://localhost:5000/api/tasks
+
+    PUT
+
+    PATCH
+
+    DELETE
 
 
 # namespace
