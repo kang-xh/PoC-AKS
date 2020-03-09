@@ -14,7 +14,7 @@ tasks = [
     {
         'id': 2,
         'title': u'Running',
-        'description': u' 12KM/Hour, 1 hour every day', 
+        'description': u'12KM/Hour, 1 hour every day', 
         'done': False
     }
 ]
@@ -28,7 +28,7 @@ def get_tasks():
 
 @app.route('/api/tasks/<int:task_id>', methods=['GET'])
 def get_task(task_id):
-    task = filter(lambda t: t['id'] == task_id, tasks)
+    task = list(filter(lambda t: t['id'] == task_id, tasks))
     if len(task) == 0:
         abort(404)
     return jsonify({'task': task[0]})
@@ -48,7 +48,7 @@ def create_task():
 
 @app.route('/api/tasks/<int:task_id>', methods=['PUT'])
 def update_task(task_id):
-    task = filter(lambda t: t['id'] == task_id, tasks)
+    task = list(filter(lambda t: t['id'] == task_id, tasks))
     if len(task) == 0:
         abort(404)
     if not request.json:
@@ -66,7 +66,7 @@ def update_task(task_id):
 
 @app.route('/api/tasks/<int:task_id>', methods=['DELETE'])
 def delete_task(task_id):
-    task = filter(lambda t: t['id'] == task_id, tasks)
+    task = list(filter(lambda t: t['id'] == task_id, tasks))
     if len(task) == 0:
         abort(404)
     tasks.remove(task[0])
