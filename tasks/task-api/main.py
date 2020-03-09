@@ -27,6 +27,10 @@ def make_public_task(task):
             new_task[field] = task[field]
     return new_task
 
+@app.route('/')
+def index():
+    return "Thanks for visit, please call /api/tasks! \n"
+
 @app.route('/api/tasks', methods=['GET'])
 def get_tasks():
     return jsonify({'tasks': map(make_public_task, tasks)})

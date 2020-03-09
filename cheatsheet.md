@@ -27,8 +27,8 @@ az aks browse --resource-group az-rg-kangxh-aks --name kangxhakssea
 
 ### vote
 
-    sudo docker image build /home/allenk/github/PoC-AKS/vote/web -t kangxhacrsea.azurecr.io/vote-web:latest
-    sudo docker push kangxhacrsea.azurecr.io/vote-web:latest
+    docker image build /home/allenk/github/PoC-AKS/vote/web -t kangxhacrsea.azurecr.io/vote-web:latest
+    docker push kangxhacrsea.azurecr.io/vote-web:latest
 
     kubectl apply -f /home/allenk/github/PoC-AKS/vote/vote-deploy.yaml
     kubectl get svc -n vote
@@ -40,7 +40,13 @@ az aks browse --resource-group az-rg-kangxh-aks --name kangxhakssea
 
 ### Tasks
 
-    Tasks PoD is a simple API app, Python, Flask
+    Tasks Container is a simple API app, Python, Flask
+
+    docker image build /home/allenk/github/PoC-AKS/tasks -t kangxhacrsea.azurecr.io/task-api:latest
+    docker push kangxhacrsea.azurecr.io/task-api:latest
+    kubectl apply -f /home/allenk/github/PoC-AKS/tasks/task-deploy.yaml
+
+    docker run --rm --name tasks -p 8081:80 -d task-api
 
     GET
     http://localhost:5000/api/tasks
