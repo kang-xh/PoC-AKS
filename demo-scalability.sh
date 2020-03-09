@@ -5,23 +5,18 @@ kubectl cluster-info
 kubectl get node -o wide
 kubectl get pod --all-namespaces -o wide
 
-# get voting PoD detials
-kubectl get pod --namespace voting -o wide
+# get vote PoD detials
+kubectl get pod --namespace vote -o wide
 
-# scale voting web front PoD number to 2
-kubectl scale --replicas=2 deployment azure-vote-front --namespace voting
+# scale vote web front PoD number to 2
+kubectl scale --replicas=2 deployment vote-web --namespace vote
 
-
-################ Step 2: start JMeter for stress test
-Scale JMeter thread to 10,  response around 60ms, Error rate 0
-Scale JMeter thread to 100, response around 120ms, Error rate 0
-Scale JMeter thread to 500, response around 180ms, Error rate 50%
 
 ################ Step 3: redo stress test with scale pod
 keep Scale JMeter thread to 500, start to scale pod
 
-kubectl scale --replicas=15 deployment azure-vote-front --namespace voting
-watch kubectl get pod --namespace voting -o wide
+kubectl scale --replicas=15 deployment vote-web --namespace vote
+watch kubectl get pod --namespace vote -o wide
 
 Some PoD could be Pending due to Insufficient CPU
 
@@ -34,7 +29,7 @@ az aks list --output table
 az aks scale --resource-group az-rg-kangxh-aks --name kangxhakssea --node-count 4 --nodepool-name agentpool
 
 ################ Step 5: Scale in 
-kubectl scale --replicas=2 deployment azure-vote-front --namespace voting
+kubectl scale --replicas=2 deployment vote-web --namespace vote
 az aks scale --resource-group az-rg-kangxh-aks --name kangxhakssea --node-count 2 --nodepool-name agentpool
 
 
