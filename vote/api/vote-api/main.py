@@ -23,6 +23,10 @@ try:
 except redis.ConnectionError:
     exit('Failed to connect to Redis, terminating.')
 
+@app.route('/', methods=['GET'])
+def get_votes():
+    return "Thanks for vist, please access API interface /api/vote"
+
 @app.route('/api/votes', methods=['GET'])
 def get_votes():
     return "Mock API Entry: GET /api/votes"

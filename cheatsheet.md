@@ -28,6 +28,9 @@ az aks browse --resource-group az-rg-kangxh-aks --name kangxhakssea
     docker image build /home/allenk/github/PoC-AKS/vote/web -t kangxhacrsea.azurecr.io/vote-web:latest
     docker push kangxhacrsea.azurecr.io/vote-web:latest
 
+    docker image build /home/allenk/github/PoC-AKS/vote/api -t kangxhacrsea.azurecr.io/vote-api:latest
+    docker push kangxhacrsea.azurecr.io/vote-api:latest
+
     kubectl apply -f /home/allenk/github/PoC-AKS/vote/vote-deploy.yaml
     kubectl get svc -n vote
 
