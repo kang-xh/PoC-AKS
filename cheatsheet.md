@@ -20,8 +20,6 @@ az aks browse --resource-group az-rg-kangxh-aks --name kangxhakssea
     az acr list --resource-group az-rg-kangxh-aks --query "[].{acrLoginServer:loginServer}" --output table
     az acr repository list --name kangxhacrsea --output table
 
-
-
     az acr repository show-tags --name kangxhacrsea --repository vote-web --output table
     az acr repository delete --name kangxhacrsea --repository vote-web
 
@@ -32,7 +30,6 @@ az aks browse --resource-group az-rg-kangxh-aks --name kangxhakssea
 
     kubectl apply -f /home/allenk/github/PoC-AKS/vote/vote-deploy.yaml
     kubectl get svc -n vote
-
 
     kubectl rm deploy vote-db -n vote
     kubectl rm deploy vote-web -n vote
