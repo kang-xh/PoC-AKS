@@ -100,8 +100,11 @@ kind: Service
 metadata:
   namespace: vote
   name: vote-web
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 spec:
   type: LoadBalancer
+  loadBalancerIP: 192.168.11.100
   ports:
   - port: 80
   selector:
@@ -112,8 +115,11 @@ kind: Service
 metadata:
   namespace: vote
   name: vote-api
+  annotations:
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 spec:
   type: LoadBalancer
+  loadBalancerIP: 192.168.11.101
   ports:
   - port: 80
   selector:

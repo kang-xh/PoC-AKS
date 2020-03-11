@@ -72,7 +72,6 @@ def delete_task(task_id):
     tasks.remove(task[0])
     return jsonify({'result': True})
 
-
 @app.errorhandler(404)
 def not_found(error):
     return make_response(jsonify({'error': 'Invalid Inut, Item Not found'}), 404)
