@@ -40,31 +40,18 @@ az aks browse --resource-group az-rg-kangxh-aks --name kangxhakssea
 
 ### Tasks
 
-    Tasks Container is a simple API app, Python, Flask. Using in memory list as DB. 
+    Tasks Container is a simple API app, Python, Flask. Using in memory list as DB and export service via NodePort for internal access.
 
     docker image build /home/allenk/github/PoC-AKS/tasks -t kangxhacrsea.azurecr.io/task-api:latest
     docker push kangxhacrsea.azurecr.io/task-api:latest
     kubectl apply -f /home/allenk/github/PoC-AKS/tasks/task-deploy.yaml
 
-    docker image build /home/allenk/github/PoC-AKS/tasks -t task-api
-    docker run --rm --name tasks -p 8081:80 -d task-api
-    curl http://localhost:8081/api/tasks
-
     GET
-    http://localhost:5000/api/tasks
-    http://localhost:5000/api/tasks/1
+    curl http://192.168.11.4:30030/api/tasks
+    curl http://192.168.11.4:30030/api/tasks/1
 
     POST
-    curl -i -H "Content-Type: application/json" -X POST -d '{"title":"Read a book"}' http://localhost:5000/api/tasks
-
-    PUT
-
-
-    PATCH
-
-
-    DELETE
-
+    curl -i -H "Content-Type: application/json" -X POST -d '{"title":"Read a book"}' http://192.168.11.4:30030/api/tasks
 
 # namespace
 kubectl apply -f ./other/namespace.yaml

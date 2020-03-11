@@ -15,6 +15,19 @@
     secrets             
     vote                Demo applciation
 
+### Web Site URL Path
+
+    www.kangxh.com                  <--->   web application
+
+    Route by ingress controller
+    ngix.kangxh.com\vote            <--->   vote-web service (AKS)
+    ngix.kangxh.com\api\votes       <--->   vote-api service (AKS)
+    ngix.kangxh.com\api\tasks       <--->   task-api service (AKS)
+
+    Route by apim
+    apim.kangxh.com\api\votes       <--->   vote-api service (AKS)
+    apim.kangxh.com\api\tasks       <--->   task-api service (AKS)
+
 ### Deployment Topology
 
 ![aks](images/aks.jpg)
