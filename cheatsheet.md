@@ -34,9 +34,7 @@ az aks browse --resource-group az-rg-kangxh-aks --name kangxhakssea
     kubectl apply -f /home/allenk/github/PoC-AKS/vote/vote-deploy.yaml
     kubectl get svc -n vote
 
-    kubectl rm deploy vote-db -n vote
-    kubectl rm deploy vote-web -n vote
-    kubectl rm namepsace vote
+    kubectl exec -it vote-api-xxxx -n vote -- /bin/bash
 
 ### Tasks
 
@@ -44,6 +42,7 @@ az aks browse --resource-group az-rg-kangxh-aks --name kangxhakssea
 
     docker image build /home/allenk/github/PoC-AKS/tasks -t kangxhacrsea.azurecr.io/task-api:latest
     docker push kangxhacrsea.azurecr.io/task-api:latest
+
     kubectl apply -f /home/allenk/github/PoC-AKS/tasks/task-deploy.yaml
 
     GET

@@ -1,49 +1,29 @@
-from flask import Flask, request, render_template
-import os
-import random
-import redis
-import socket
-import sys
+from flask import Flask
 
 app = Flask(__name__)
 
-# Redis configurations
-redis_server = os.environ['REDIS']
-
-# Redis Connection
-try:
-    if "REDIS_PWD" in os.environ:
-        r = redis.StrictRedis(host=redis_server,
-                        port=6379,
-                        password=os.environ['REDIS_PWD'])
-    else:
-        r = redis.Redis(redis_server)
-    r.ping()
-except redis.ConnectionError:
-    exit('Failed to connect to Redis, terminating.')
-
 @app.route('/', methods=['GET'])
 def get_votes():
-    return "Thanks for visit, please access API interface /api/vote"
+    return "Thanks for visit, please access API interface /api/votes"
 
 @app.route('/api/votes', methods=['GET'])
-def get_votes():
+def get_vote():
     return "Mock API Entry: GET /api/votes"
 
 @app.route('/api/votes', methods=['POST'])
-def get_votes():
+def post_votes():
     return "Mock API Entry: POST /api/votes"
 
 @app.route('/api/votes', methods=['PUT'])
-def get_votes():
+def put():
     return "Mock API Entry: PUT /api/votes"
 
 @app.route('/api/votes', methods=['PATCH'])
-def get_votes():
+def patch_vote():
     return "Mock API Entry: PATCH /api/votes"
 
 @app.route('/api/votes', methods=['DELETE'])
-def get_votes():
+def delete_votes():
     return "Mock API Entry: DELETE /api/votes"
 
 if __name__ == "__main__":

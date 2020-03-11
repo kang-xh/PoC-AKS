@@ -53,6 +53,7 @@ spec:
       containers:
       - name: vote-web
         image: kangxhacrsea.azurecr.io/vote-web
+        imagePullPolicy: "Always"
         ports:
         - containerPort: 80
         resources:
@@ -84,6 +85,7 @@ spec:
       containers:
       - name: vote-api
         image: kangxhacrsea.azurecr.io/vote-api
+        imagePullPolicy: "Always"
         ports:
         - containerPort: 80
         resources:
