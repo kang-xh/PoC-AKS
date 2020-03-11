@@ -7,7 +7,6 @@ import sys
 
 app = Flask(__name__)
 
-
 # Redis configurations
 redis_server = os.environ['REDIS']
 
@@ -25,11 +24,27 @@ except redis.ConnectionError:
 
 @app.route('/', methods=['GET'])
 def get_votes():
-    return "Thanks for vist, please access API interface /api/vote"
+    return "Thanks for visit, please access API interface /api/vote"
 
 @app.route('/api/votes', methods=['GET'])
 def get_votes():
     return "Mock API Entry: GET /api/votes"
-  
+
+@app.route('/api/votes', methods=['POST'])
+def get_votes():
+    return "Mock API Entry: POST /api/votes"
+
+@app.route('/api/votes', methods=['PUT'])
+def get_votes():
+    return "Mock API Entry: PUT /api/votes"
+
+@app.route('/api/votes', methods=['PATCH'])
+def get_votes():
+    return "Mock API Entry: PATCH /api/votes"
+
+@app.route('/api/votes', methods=['DELETE'])
+def get_votes():
+    return "Mock API Entry: DELETE /api/votes"
+
 if __name__ == "__main__":
     app.run()
