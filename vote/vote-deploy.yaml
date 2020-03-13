@@ -126,3 +126,41 @@ spec:
   - port: 80
   selector:
     app: vote-api
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-vote-web
+  namespace: vote
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: vote.kangxh.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: vote-web
+          servicePort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-vote-api
+  namespace: vote
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/rewrite-target: /api/votes
+spec:
+  rules:
+  - host: vote.kangxh.com
+    http:
+      paths:
+      - path: /api/votes
+        backend:
+          serviceName: vote-api
+          servicePort: 80
