@@ -1,8 +1,13 @@
 #!flask/bin/python
 # https://www.cnblogs.com/vovlie/p/4178077.html
-from flask import Flask, jsonify, abort, make_response, request, url_for
+import random
+from flask import Flask, jsonify, abort, make_response, request, url_for, Response
+import prometheus_client
+from prometheus_client import Gauge
 
 app = Flask(__name__)
+
+task_process_time_in_ms = Gauge("task_process_time_in_ms", "Task process time in ms. Random & Fake")
 
 tasks = [
     {
@@ -21,6 +26,11 @@ tasks = [
 @app.route('/')
 def index():
     return "Thanks for visit, please call /api/tasks! \n"
+
+@app.route("/metrics")
+def r_value():
+    task_process_time_in_ms.set(random.randint(80, 100))
+    return Response(prometheus_client.generate_latest(task_process_time_in_ms), mimetype="text/plain")
 
 @app.route('/api/tasks', methods=['GET'])
 def get_tasks():
