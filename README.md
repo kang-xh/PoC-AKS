@@ -17,16 +17,15 @@
 
 ### Web Site URL Path
 
-    www.kangxh.com                  <--->   web application
+    www.kangxh.com                  <--->   main domain hosted by app service
+    vote.kangxh.com                 <--->   vote web site
 
-    Route by ingress controller
-    ngix.kangxh.com\vote            <--->   vote-web service (AKS)
-    ngix.kangxh.com\api\votes       <--->   vote-api service (AKS)
-    ngix.kangxh.com\api\tasks       <--->   task-api service (AKS)
+    vote.kangxh.com/api/votes       <--->   mock vote api
+    task.kangxh.com/api/tasks       <--->   task api
 
-    Route by apim
-    apim.kangxh.com\api\votes       <--->   vote-api service (AKS)
-    apim.kangxh.com\api\tasks       <--->   task-api service (AKS)
+    Route by apim, https only
+    https://apim.kangxh.com/task/api/tasks       <--->   task-api service (AKS), APIM is normally deleted to save cost.
+
 
 ### Deployment Topology
 
