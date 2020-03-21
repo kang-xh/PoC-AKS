@@ -2,6 +2,7 @@
 
 ##### reference
 
+    docker run -it -p 3000:80 mcr.microsoft.com/azure-cognitive-services/custom-form/labeltool eula=accept
 
 ##### environment
 

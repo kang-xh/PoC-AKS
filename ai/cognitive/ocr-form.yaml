@@ -7,7 +7,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   namespace: ai
-  name: ocr-fr
+  name: ocr-fr-labeltool
 spec:
   replicas: 1
   minReadySeconds: 5 
@@ -20,6 +20,7 @@ spec:
       - name: ocr-fr-labeltool
         image: mcr.microsoft.com/azure-cognitive-services/custom-form/labeltool:latest
         imagePullPolicy: "Always"
+        args: ["EULA=accept"]
         ports:
         - containerPort: 80
         resources:
@@ -27,9 +28,6 @@ spec:
             cpu: 200m
           limits:
             cpu: 500m
-        env:
-        - name: eula
-          value: "accept"
 ---
 apiVersion: v1
 kind: Service
