@@ -27,6 +27,9 @@ spec:
             cpu: 200m
           limits:
             cpu: 500m
+        env:
+        - name: eula
+          value: "accept"
 ---
 apiVersion: v1
 kind: Service
