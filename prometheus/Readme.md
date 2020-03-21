@@ -1,18 +1,36 @@
-Prometheus is deployed to aks cluster using helm. all the services type is marked as clusterIP
+#### logic
+    prometheus server is not required as Azure Monitor is able to scraping metrics data directly and save it to log analytics workspace.
 
-to access prometheus from outside of cluster:
+    enable Azure Monitor for container to deploy the omsagent POD to cluster. 
 
-1. Delploy ingress controller from [helm](https://docs.microsoft.com/en-us/azure/aks/ingress-basic)： 
+#### Env:
 
-helm install stable/nginx-ingress --namespace monitoring --set controller.replicaCount=2
+    task-api using prometheus_client to export a fake gauge metrics data: 
 
-NAME                                           TYPE           CLUSTER-IP     EXTERNAL-IP    PORT(S)                      AGE
-wrapping-moose-nginx-ingress-controller        LoadBalancer   10.0.242.145   52.187.3.145   80:31224/TCP,443:30202/TCP   3m3s
-wrapping-moose-nginx-ingress-default-backend   ClusterIP      10.0.63.170    <none>         80/TCP                       3m2s
+    # HELP task_process_time_in_ms Task process time in ms. Random & Fake
+    # TYPE task_process_time_in_ms gauge
+    task_process_time_in_ms 100.0
 
 
-2. Create NodePort type service end point 
-    get the current service configuration and create necessary Serivice Entry point: kubectl get -o yaml
+#### enabled the capture by ConfigMap under /taks/aks_prometheus_config_map.yaml
 
-3. Routed by K8S ingress controller. 
+    kubectl apply -f aks_prometheus_config_map.yaml
 
+    restart omsagent pod
+
+    kubectl log omsagentxxxx -n kube-system
+
+    ****************Start Prometheus Config Processing********************
+    config::configmap container-azm-ms-agentconfig for settings mounted, parsing values for prometheus config map       
+    config::Successfully parsed mounted prometheus config map
+    config::Successfully passed typecheck for config settings for daemonset
+    config::Starting to substitute the placeholders in telegraf conf copy file for daemonset
+    config::Successfully substituted the placeholders in telegraf conf file for daemonset
+    config::Successfully created telemetry file for daemonset
+    ****************End Prometheus Config Processing********************
+
+#### Check capture data in log analytics:
+
+    InsightsMetrics
+    | where Namespace == "prometheus" 
+    | project Computer , Namespace, Name, Val , TimeGenerated 

@@ -26,7 +26,6 @@
     Route by apim, https only
     https://apim.kangxh.com/task/api/tasks       <--->   task-api service (AKS), APIM is normally deleted to save cost.
 
-
 ### Deployment Topology
 
 ![aks](images/aks.jpg)
