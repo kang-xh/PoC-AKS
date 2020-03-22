@@ -10,9 +10,26 @@
 
     POD: 
         ocr-fr-labeltool
-        ocr-fr-apiserver
 
     Svc: 
-        labeltool - web portal to use label tool
+        ocr-fr-labeltool - ClusterIP
+
+    Ingress:
+        ingress-ocr-fr-labeltool - ocr-fr.kangxh.com, port 80
+
+##### Azure Env
+
+    The POD is stateless
+
+    kangxhocrseaform
+    Endpoint: https://kangxhocrseaform.cognitiveservices.azure.com/
+    key:             
+
+    Storage Account: kangxhsaseaai
+    container: form
+    policy: fullcontrol
+
+    https://kangxhsaseaai.blob.core.windows.net/form?sv=2019-02-02&ss=bfqt&srt=sco&sp=rwdlacup&se=2021-03-22T10:30:28Z&st=2020-03-22T02:30:28Z&spr=https&sig=LwbqImVEo3E0G9rb8ayF3n4UEtD2FhPcEs2Re037fL8%3D
+
 
 
