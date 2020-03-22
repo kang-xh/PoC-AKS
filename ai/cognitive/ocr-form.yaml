@@ -37,7 +37,7 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - name: labeltool
+    - name: http
       protocol: TCP
       port: 80
       targetPort: 80
