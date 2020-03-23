@@ -22,15 +22,14 @@
 ### Web Site URL Path
 
     www.kangxh.com                  <--->   main domain hosted by app service
+    
     vote.kangxh.com                 <--->   vote web site
-
     vote.kangxh.com/api/votes       <--->   mock vote api
+
     task.kangxh.com/api/tasks       <--->   task api
+    task.kangxh.com/metrics         <--->   promethues export endpoint
 
-    ocr-fr.kangxh.com               <--->   OCR Form Recognizer Label tool. Use Firefox to access. 
-
-    Route by apim, https only
-    https://apim.kangxh.com/task/api/tasks       <--->   task-api service (AKS), APIM is normally deleted to save cost.
+    ocr-fr.kangxh.com               <--->   OCR Form Recognizer Label tool. 
 
 ### Deployment Topology
 
