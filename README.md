@@ -23,6 +23,8 @@
     vote.kangxh.com/api/votes       <--->   mock vote api
     task.kangxh.com/api/tasks       <--->   task api
 
+    ocr-fr.kangxh.com               <--->   OCR Form Recognizer Label tool. Use Firefox to access. 
+
     Route by apim, https only
     https://apim.kangxh.com/task/api/tasks       <--->   task-api service (AKS), APIM is normally deleted to save cost.
 
