@@ -7,13 +7,17 @@
 
 ### Folder structure
 
-    Name                Description
-    ----------------------------------------------------------------
-    ingress             Ingress controller deployment for kubernetes
-    jekins              Jekins configuration for CICD
-    prometheus          Cluster, PoD, Service monitoring 
-    secrets             
-    vote                Demo applciation
+| name      | usage | Description                                   |
+|----       | ----  | ----                                          |
+|task       | app   | demo application for api                      |
+|vote       | app   | demo application for web + api                |
+|ai         | app   | demo app for AI solution                      |
+|----       | ----                                                  |
+|monitor    | infra | log analytic with aks                         |
+|cicd       | infra | CICD with Azure DevOps & Jenkins              |
+|cheatsheet | infra | environment setup and demo script             |
+|misc       | infra | azure service co-work with aks                |
+
 
 ### Web Site URL Path
 
