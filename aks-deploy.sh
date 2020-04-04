@@ -69,4 +69,21 @@ az aks nodepool add \
 # donwload kubectl credential
 az aks get-credentials --resource-group MSDNRGKangxhSEAAKS --name kangxhakssea
 
+# Update b2 & b4 node pool. b2 will run most of time to host web
+az aks nodepool update --cluster-name kangxhakssea \
+                       --name b2pool \
+                       --resource-group MSDNRGKangxhSEAAKS \
+                       --max-count 3 \
+                       --min-count 1 \
+                       --mode System 
 
+az aks nodepool update --cluster-name kangxhakssea \
+                       --name b4pool \
+                       --resource-group MSDNRGKangxhSEAAKS \
+                       --max-count 5 \
+                       --min-count 1 \
+                       --mode User 
+
+# scale to min size to save cost.
+az aks nodepool scale --cluster-name kangxhakssea --resource-group MSDNRGKangxhSEAAKS --name b2pool --node-count 1
+az aks nodepool scale --cluster-name kangxhakssea --resource-group MSDNRGKangxhSEAAKS --name b4pool --node-count 1
