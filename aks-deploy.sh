@@ -28,7 +28,9 @@ az ad sp create-for-rbac --skip-assignment --name spn-aks-cluster
 # get dependent resource ID
 OMSID=$(az monitor log-analytics workspace show --resource-group MSDNRGKangxhSEA -n kangxhloganalyticsea --query id -o tsv)
 SUBNET=$(az network vnet subnet show --resource-group MSDNRGKangxhSEA --vnet-name kangxhvnetsea --name aks --query id -o tsv)
+PIP=$(az network public-ip show --resource-group  MSDNRGKangxhSEAAKS --name kangxhpipseaaks --query id -o tsv)
 
+# Create AKS
 az aks create --resource-group MSDNRGKangxhSEAAKS \
     --name kangxhakssea \
     --ssh-key-value /mnt/c/kangxh/AzureLabs/SSHKey/common/id_rsa.pub \
@@ -39,12 +41,13 @@ az aks create --resource-group MSDNRGKangxhSEAAKS \
     --service-principal d5074a3a-9454-4f6d-8c95-6eb6a0a822ab \
     --client-secret e2fb009c-7d5e-4215-b968-5b5331e9b337 \
     --location southeastasia \
-    --vm-set-type AvailabilitySet \
+    --vm-set-type VirtualMachineScaleSets  \
     --network-plugin azure \
     --vnet-subnet-id $SUBNET \
     --docker-bridge-address 172.17.0.1/16 \
     --service-cidr   192.168.0.0/24 \
     --dns-service-ip 192.168.0.10 \
+    --load-balancer-outbound-ips $PIP \
     --node-resource-group MSDNRGKangxhSEAAKSResources \
     --nodepool-name b2pool \
     --node-vm-size Standard_B2s \
@@ -53,6 +56,17 @@ az aks create --resource-group MSDNRGKangxhSEAAKS \
     --node-count 2 \
     --attach-acr kangxhacrsea
 
+# Add B4 node pool.
+az aks nodepool add \
+    --resource-group MSDNRGKangxhSEAAKS \
+    --cluster-name kangxhakssea \
+    --name b4pool \
+    --node-vm-size Standard_B4ms \
+    --labels sku=b4vm \
+    --node-osdisk-size 30 \
+    --node-count 2
 
+# donwload kubectl credential
+az aks get-credentials --resource-group MSDNRGKangxhSEAAKS --name kangxhakssea
 
 
