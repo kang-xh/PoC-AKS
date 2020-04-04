@@ -46,11 +46,11 @@ az aks browse --resource-group az-rg-kangxh-aks --name kangxhakssea
     kubectl apply -f /home/allenk/github/PoC-AKS/tasks/task-deploy.yaml
 
     GET
-    curl http://192.168.11.4:30030/api/tasks
-    curl http://192.168.11.4:30030/api/tasks/1
+    curl http://10.10.0.4:30030/api/tasks
+    curl http://10.10.0.4:30030/api/tasks/1
 
     POST
-    curl -i -H "Content-Type: application/json" -X POST -d '{"title":"Read a book"}' http://192.168.11.4:30030/api/tasks
+    curl -i -H "Content-Type: application/json" -X POST -d '{"title":"Read a book"}' http://10.0.0.4:30030/api/tasks
 
 # namespace
 kubectl apply -f ./other/namespace.yaml
