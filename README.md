@@ -33,4 +33,4 @@
 
 ### Deployment Topology
 
-![aks](images/aks.jpg)
+![aks](./aks.jpg)
