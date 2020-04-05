@@ -25,6 +25,8 @@ az ad sp create-for-rbac --skip-assignment --name spn-aks-cluster
     "tenant": "kangxh.com"
     }
 
+# transfer docker image from docker.io/kangxh to kangxhacrsea
+
 # get dependent resource ID
 OMSID=$(az monitor log-analytics workspace show --resource-group MSDNRGKangxhSEA -n kangxhloganalyticsea --query id -o tsv)
 SUBNET=$(az network vnet subnet show --resource-group MSDNRGKangxhSEA --vnet-name kangxhvnetsea --name aks --query id -o tsv)
@@ -87,3 +89,5 @@ az aks nodepool update --cluster-name kangxhakssea \
 # scale to min size to save cost.
 az aks nodepool scale --cluster-name kangxhakssea --resource-group MSDNRGKangxhSEAAKS --name b2pool --node-count 1
 az aks nodepool scale --cluster-name kangxhakssea --resource-group MSDNRGKangxhSEAAKS --name b4pool --node-count 1
+
+# apply the deployment yaml from workloads folder.
