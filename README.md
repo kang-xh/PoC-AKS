@@ -11,17 +11,18 @@
 
 ### Folder structure
 
-Workloads:
-    - task          --  demo application for api
-    - vote          --  demo application for web
-    - cognitive     --  demo app for AI solution
-    - web           --  personal web sites 
+Workloads:  
 
-Infra:
-    - monitor       --  log analytic with aks
-    - cicd          --  CICD with Azure DevOps & Jenkins
-    - cheatsheet    --  environment setup and demo script
-    - misc          --  azure service co-work with aks
+    - task          --  demo application for api  
+    - vote          --  demo application for web  
+    - cognitive     --  demo app for AI solution  
+    - web           --  personal web sites   
+
+Infra:  
+    - monitor       --  log analytic with aks  
+    - cicd          --  CICD with Azure DevOps & Jenkins  
+    - cheatsheet    --  environment setup and demo script  
+    - misc          --  azure service co-work with aks  
 
 ### Web Site URL Path
 
