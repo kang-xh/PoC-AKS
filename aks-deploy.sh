@@ -14,18 +14,14 @@ az resource list --resource-group MSDNRGKangxhSEA -o table
 # Create aks Resource Group
 az group create --name MSDNRGKangxhSEAAKS --location southeastasia
 
-# Create aks spn
-az ad sp create-for-rbac --skip-assignment --name spn-aks-cluster
-
-    {
-    "appId": "d5074a3a-9454-4f6d-8c95-6eb6a0a822ab",
-    "displayName": "spn-aks-cluster",
-    "name": "http://spn-aks-cluster",
-    "password": "e2fb009c-7d5e-4215-b968-5b5331e9b337",
-    "tenant": "kangxh.com"
-    }
-
 # transfer docker image from docker.io/kangxh to kangxhacrsea
+az acr login --resource-group MSDNRGKangxhAKS --name kangxhacrsea
+docker push kangxhacrsea.azurecr.io/task-api:latest
+docker push kangxhacrsea.azurecr.io/vote-web:latest
+
+az acr import --name kangxhacrsea --source docker.io/kangxh/task-api:latest --image task-api:latest
+az acr import --name kangxhacrsea --source docker.io/kangxh/vote-web:latest --image vote-web:latest
+az acr import --name kangxhacrsea --source docker.io/kangxh/kangxh.com:latest --image kangxh.com:latest
 
 # get dependent resource ID
 OMSID=$(az monitor log-analytics workspace show --resource-group MSDNRGKangxhSEA -n kangxhloganalyticsea --query id -o tsv)
@@ -40,8 +36,6 @@ az aks create --resource-group MSDNRGKangxhSEAAKS \
     --workspace-resource-id $OMSID \
     --enable-addons monitoring \
     --enable-managed-identity \
-    --service-principal d5074a3a-9454-4f6d-8c95-6eb6a0a822ab \
-    --client-secret e2fb009c-7d5e-4215-b968-5b5331e9b337 \
     --location southeastasia \
     --vm-set-type VirtualMachineScaleSets  \
     --network-plugin azure \
@@ -89,5 +83,19 @@ az aks nodepool update --cluster-name kangxhakssea \
 # scale to min size to save cost.
 az aks nodepool scale --cluster-name kangxhakssea --resource-group MSDNRGKangxhSEAAKS --name b2pool --node-count 1
 az aks nodepool scale --cluster-name kangxhakssea --resource-group MSDNRGKangxhSEAAKS --name b4pool --node-count 1
+
+# ensure the Mananged Identity has Contributor access to AKS and AKS Resources group.
+#
+
+# Create Ingress Controller first.
+kubectl create namespace ingress
+
+helm repo add stable https://kubernetes-charts.storage.googleapis.com/
+
+helm install nginx-ingress stable/nginx-ingress \
+    --namespace ingress \
+    --set controller.replicaCount=1 \git 
+    --set controller.nodeSelector."beta\.kubernetes\.io/os"=linux \
+    --set defaultBackend.nodeSelector."beta\.kubernetes\.io/os"=linux
 
 # apply the deployment yaml from workloads folder.
