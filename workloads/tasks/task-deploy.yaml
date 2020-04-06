@@ -16,6 +16,8 @@ spec:
       labels:
         app: task-api
     spec:
+      nodeSelector:
+        sku: b2vm
       containers:
       - name: task-api
         image: kangxhacrsea.azurecr.io/task-api
