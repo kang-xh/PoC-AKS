@@ -2,23 +2,25 @@
 
     AKS deployed in Azure South East Asia. Feature gap can exist between global Azure and sovereign cloud. 
 
-    This PoC is used to demo basic AKS functions, including availability, scalability, CICD. It is also used for other app service backend, like APIM, Application gateway. 
+    This PoC is used to demo basic AKS functions, including availability, scalability, CICD. 
+    It is also used for other app service backend, like APIM, Application gateway. 
 
-    Resource are hosted in MSDN subscription with 150$/Month quota. Unnecessary resource are turn off and need manual start.
+    Resource are hosted in MSDN subscription with 150$/Month quota. 
+    Unnecessary resource are turn off and need manual start.
 
     Use this AKS to host personal web site: kangxh.com and ibean.org.
 
 
 ### Folder structure
 
-Workloads:  
+##### Workloads:  
 
     - task          --  demo application for api  
     - vote          --  demo application for web  
     - cognitive     --  demo app for AI solution  
     - web           --  personal web sites   
 
-Infra:  
+##### Infra:  
     - monitor       --  log analytic with aks  
     - cicd          --  CICD with Azure DevOps & Jenkins  
     - cheatsheet    --  environment setup and demo script  
