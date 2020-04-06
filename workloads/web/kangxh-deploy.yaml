@@ -27,6 +27,15 @@ spec:
             cpu: 100m
           limits:
             cpu: 200m
+        volumeMounts:
+        - name: azure
+          mountPath: /mnt/azure
+      volumes:
+      - name: azure
+        azureFile:
+          secretName: azure-secret
+          shareName: web-kangxh
+          readOnly: false
 ---
 apiVersion: v1
 kind: Service
