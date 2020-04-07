@@ -20,6 +20,9 @@ spec:
       - name: kangxhweb
         image: kangxhacrsea.azurecr.io/kangxh.com
         imagePullPolicy: "Always"
+        env:
+          - name: AZUREFILE
+            value: "/mnt/azure"
         ports:
         - containerPort: 80
         resources:
