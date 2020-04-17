@@ -3,12 +3,15 @@ kind: Namespace
 metadata:
   name: web
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: web
   name: ibean
 spec:
+  selector:
+    matchLabels:
+      app: ibean
   replicas: 1
   minReadySeconds: 5 
   template:
@@ -49,7 +52,7 @@ metadata:
     service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 spec:
   type: LoadBalancer
-  loadBalancerIP: 10.10.0.230
+  loadBalancerIP: 10.10.0.240
   ports:
   - port: 80
   selector:

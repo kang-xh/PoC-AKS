@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vload
+spec:
+  selector:
+    matchLabels:
+      app: vload
+  replicas: 1
+  minReadySeconds: 5 
+  template:
+    metadata:
+      labels:
+        app: vload
+    spec:
+      containers:
+      - name: vload
+        image: kangxhacrsea.azurecr.io/vload:latest
+        imagePullPolicy: "Always"
+        env:
+          - name: CONTAINER_NAME
+            value: "landingzone"
+          - name: THREAD_COUNT
+            value: "1"
+          - name: LOAD_SLEEP_TIME_IN_SEC
+            value: "120"
+        resources:
+          requests:
+            cpu: 100m
+          limits:
+            cpu: 200m
