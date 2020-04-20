@@ -18,12 +18,56 @@ spec:
         image: kangxhacrsea.azurecr.io/vload:latest
         imagePullPolicy: "Always"
         env:
-          - name: CONTAINER_NAME
-            value: "landingzone"
-          - name: THREAD_COUNT
-            value: "1"
-          - name: LOAD_SLEEP_TIME_IN_SEC
-            value: "120"
+          - name: SQL_GENERATE_LOAD
+            valueFrom:
+              configMapKeyRef:
+                name: vload-config
+                key: SQL_GENERATE_LOAD
+          - name: SQL_CONNECTION_STRING
+            valueFrom:
+              configMapKeyRef:
+                name: vload-config
+                key: SQL_CONNECTION_STRING
+          - name: SQL_TABLE_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: vload-config
+                key: SQL_TABLE_NAME
+          - name: SQL_THREAD_COUNT
+            valueFrom:
+              configMapKeyRef:
+                name: vload-config
+                key: SQL_THREAD_COUNT
+          - name: SQL_SLEEP_TIME_IN_SEC
+            valueFrom:
+              configMapKeyRef:
+                name: vload-config
+                key: SQL_SLEEP_TIME_IN_SEC
+          - name: BLOB_GENERATE_LOAD
+            valueFrom:
+              configMapKeyRef:
+                name: vload-config
+                key: BLOB_GENERATE_LOAD
+          - name: BLOB_CONNECTION_STRING
+            valueFrom:
+              configMapKeyRef:
+                name: vload-config
+                key: BLOB_CONNECTION_STRING
+          - name: BLOB_CONTAINER_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: vload-config
+                key: BLOB_CONTAINER_NAME
+          - name: BLOB_THREAD_COUNT
+            valueFrom:
+              configMapKeyRef:
+                name: vload-config
+                key: BLOB_THREAD_COUNT
+          - name: BLOB_SLEEP_TIME_IN_SEC
+            valueFrom:
+              configMapKeyRef:
+                name: vload-config
+                key: BLOB_SLEEP_TIME_IN_SEC
         resources:
           requests:
             cpu: 100m
