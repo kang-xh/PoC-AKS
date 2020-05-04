@@ -3,12 +3,15 @@ kind: Namespace
 metadata:
   name: web
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: web
   name: kangxhweb
 spec:
+  selector:
+    matchLabels:
+      app: kangxhweb
   replicas: 1
   minReadySeconds: 5 
   template:
@@ -19,7 +22,6 @@ spec:
       containers:
       - name: kangxhweb
         image: kangxhacrsea.azurecr.io/kangxh.com
-        imagePullPolicy: "Always"
         env:
           - name: AZUREFILE
             value: "/mnt/azure"
@@ -49,7 +51,7 @@ metadata:
     service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 spec:
   type: LoadBalancer
-  loadBalancerIP: 10.10.0.220
+  loadBalancerIP: 10.0.1.220
   ports:
   - port: 80
   selector:

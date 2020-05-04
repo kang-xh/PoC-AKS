@@ -21,8 +21,7 @@ spec:
     spec:
       containers:
       - name: ibean
-        image: kangxhacrsea.azurecr.io/ibean.org
-        imagePullPolicy: "Always"
+        image: kangxhacrsea.azurecr.io/ibean.org:latest
         env:
           - name: AZUREFILE
             value: "/mnt/azure"
@@ -52,7 +51,7 @@ metadata:
     service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 spec:
   type: LoadBalancer
-  loadBalancerIP: 10.10.0.240
+  loadBalancerIP: 10.0.1.240
   ports:
   - port: 80
   selector:
