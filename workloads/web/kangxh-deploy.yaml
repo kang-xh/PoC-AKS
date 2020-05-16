@@ -11,6 +11,9 @@ metadata:
   labels:
     app: kangxhweb
 spec:
+  selector:
+    matchLabels:
+      app: kangxhweb
   replicas: 1
   selector:
     matchLabels:
@@ -23,7 +26,6 @@ spec:
       containers:
       - name: kangxhweb
         image: kangxhacrsea.azurecr.io/kangxh.com
-        imagePullPolicy: "Always"
         env:
           - name: AZUREFILE
             value: "/mnt/azure"
@@ -53,7 +55,7 @@ metadata:
     service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 spec:
   type: LoadBalancer
-  loadBalancerIP: 10.10.0.220
+  loadBalancerIP: 10.0.1.220
   ports:
   - port: 80
   selector:
