@@ -3,14 +3,18 @@ kind: Namespace
 metadata:
   name: web
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: kangxhweb-deployment
   namespace: web
-  name: kangxhweb
+  labels:
+    app: kangxhweb
 spec:
   replicas: 1
-  minReadySeconds: 5 
+  selector:
+    matchLabels:
+      app: kangxhweb
   template:
     metadata:
       labels:
@@ -36,7 +40,7 @@ spec:
       volumes:
       - name: azure
         azureFile:
-          secretName: azure-secret
+          secretName: kangxhsaseaweb-secret
           shareName: web-kangxh
           readOnly: false
 ---

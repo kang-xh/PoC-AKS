@@ -6,14 +6,15 @@ metadata:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  name: ibean-deployment
   namespace: web
-  name: ibean
+  labels:
+    app: ibean
 spec:
+  replicas: 3
   selector:
     matchLabels:
       app: ibean
-  replicas: 1
-  minReadySeconds: 5 
   template:
     metadata:
       labels:
@@ -39,7 +40,7 @@ spec:
       volumes:
       - name: azure
         azureFile:
-          secretName: azure-secret
+          secretName: kangxhsaseaweb-secret
           shareName: web-ibean
           readOnly: false
 ---
