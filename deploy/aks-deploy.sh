@@ -61,7 +61,28 @@ az aks nodepool add \
     --node-vm-size Standard_B4ms \
     --labels sku=b4vm \
     --node-osdisk-size 30 \
-    --node-count 2
+    --node-count 1
+
+az aks nodepool add \
+    --resource-group az-rg-kangxh-aks \
+    --cluster-name kangxhakssea \
+    --name d8pool \
+    --node-vm-size Standard_D8s_v3 \
+    --labels sku=d8vm \
+    --node-osdisk-size 30 \
+    --node-count 1
+
+az aks nodepool add \
+    --resource-group az-rg-kangxh-aks \
+    --cluster-name kangxhakssea \
+    --name f8pool \
+    --node-vm-size Standard_F8s_v2 \
+    --labels sku=f8vm \
+    --node-osdisk-size 30 \
+    --node-count 1
+
+az aks nodepool delete --resource-group az-rg-kangxh-aks --cluster-name kangxhakssea --name f8pool
+az aks nodepool delete --resource-group az-rg-kangxh-aks --cluster-name kangxhakssea --name b2pool
 
 # donwload kubectl credential
 az aks get-credentials --resource-group az-rg-kangxh-aks --name kangxhakssea
@@ -77,9 +98,9 @@ az aks nodepool update --cluster-name kangxhakssea \
 az aks nodepool update --cluster-name kangxhakssea \
                        --name b4pool \
                        --resource-group az-rg-kangxh-aks \
-                       --max-count 5 \
+                       --max-count 3 \
                        --min-count 1 \
-                       --mode User 
+                       --mode System 
 
 # scale to min size to save cost.
 az aks nodepool scale --cluster-name kangxhakssea --resource-group az-rg-kangxh-aks --name b2pool --node-count 1
